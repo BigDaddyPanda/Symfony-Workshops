@@ -17,11 +17,27 @@ class DefaultController extends Controller
         ]);
     }
     /**
-     *
+     * @Route("/first")
      * */
-    public function premierAction()
+    public function firstAction()
     {
         // Contenu du contrôleur à préparer
+
+        return $this->render('MyView/first.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
+    }
+
+    /**
+    * @Route("cv/{nom}")
+     */
+    public function cvAction()
+    {
+        // Contenu du contrôleur à préparer
+
+        return $this->render('MyView/first.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
     }
 
     /**
