@@ -1,0 +1,11 @@
+{% extends '@ResumeYMLRouted/SBAdmin/index.html.twig' %}
+{% block title %} Resume List{% endblock %}
+{% block body %}
+
+    {% block  list_header %}
+        {{ render(controller(
+            'ResumeYMLRoutedBundle:Default:getListOfResumes'
+        )) }}
+    {% endblock %}
+    {{ parent() }}
+{% endblock %}

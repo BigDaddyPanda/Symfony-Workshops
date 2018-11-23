@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+{% if notif is defined %}
+    <div class="alert alert-{{ notif[1] }} alert-dismissible fade show" id="alert" role="alert">
+        <strong>{{ notif[0] }} </strong> was done with {{ notif[1]}}.
+        <button type="button" class="close" id="dismmisser" onclick="fn_dismiss()" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+{% endif %}
+<div class="container col-xs-offset-3 col-xs-6">
+
+    <h3>
+        Todo List
+    </h3>
+
+    <div class="list-group">
+        {% for cle,element in todos %}
+            <a href="set_todo?todo_cle={{ cle }}" class="list-group-item list-group-item-action flex-column align-items-start ">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ element[0] }}</h5>
+                    <small>{{ element[3] }}</small>
+                </div>
+                <p class="mb-1">{{ element[1] }}</p>
+                <small>{{ element[2] }}</small>
+            </a>
+        {% endfor %}
+
+        {% if todo_cle is defined%}
+            <div class="list-group-item list-group-item-action flex-column align-items-start ">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        <div class="input-group input-group-md mb-3">
+                            <input  id="new_title" type="text" class="form-control" value=" {{ todo_cle[0] }}" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </h5>
+                    <h5 class="mb-1 float-right">
+                        <div class="input-group input-group-md mb-3">
+                            <input  id="new_date" type="text" class="form-control" value=" {{ todo_cle[3] }}" aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </h5>
+                </div>
+
+                <div class="input-group input-group-md mb-3">
+                    <input id="new_desc" type="text" class="form-control" aria-label="Sizing example input" placeholder="Some description"  value=" {{ todo_cle[1] }}"
+                           aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+                <div class="input-group input-group-md mb-3">
+                    <input id="new_more_desc"  type="text" class="form-control" aria-label="Sizing example input"
+                           value=" {{ todo_cle[2] }}"
+                           placeholder="Even more description" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <div class="btn-group float-right" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-danger" onclick="handleAction('Remove')">Remove</button>
+                    <button type="button" class="btn btn-secondary" onclick="handleAction('Cancel')">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="handleAction('Update')">Update</button>
+                </div>
+
+
+            </div>
+        {% else %}
+            <div class="list-group-item list-group-item-action flex-column align-items-start ">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        <div class="input-group input-group-md mb-3">
+                            <input  id="new_id" type="text" class="form-control" aria-label="Sizing example input"
+                                    placeholder="New Identifier" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-md mb-3">
+                            <input  id="new_title" type="text" class="form-control" aria-label="Sizing example input"
+                                    placeholder="New Title" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </h5>
+                    <h5 class="mb-1 float-right">
+                        <div class="input-group input-group-md mb-3">
+                            <input  id="new_date" type="text" class="form-control" aria-label="Sizing example input"
+                                    placeholder="Date" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                    </h5>
+                </div>
+
+                <div class="input-group input-group-md mb-3">
+                    <input id="new_desc" type="text" class="form-control" aria-label="Sizing example input" placeholder="Some description"
+                           aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+                <div class="input-group input-group-md mb-3">
+                    <input id="new_more_desc"  type="text" class="form-control" aria-label="Sizing example input"
+                           placeholder="Even more description" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <button class="float-right btn btn-primary" onclick="handleAction('Create')"> Add</button>
+
+            </div>
+        {% endif %}
+    </div>
+</div>
+<script type="text/javascript" language="JavaScript">
+    function handleAction(str) {
+        if(str==="Cancel"){
+
+            window.location.href="/workshop/get_todo";
+        }
+        if(str==="Update"){
+            old_id=window.location.href.split("=")[1]
+            new_title=document.getElementById("new_title").value;
+            new_desc=document.getElementById("new_desc").value;
+            new_more_desc=document.getElementById("new_more_desc").value;
+            new_date=document.getElementById("new_date").value;
+            window.location.href="/workshop/set_todo?"+("&old_id="+old_id+"&new_title="+new_title+"&new_desc="+new_desc+"&new_more_desc="+new_more_desc+"&new_date="+new_date)
+        }
+
+        if(str=="Remove"){
+            old_id=window.location.href.split("=")[1]
+            window.location.href="/workshop/unset_todo?old_id="+old_id
+        }
+        if(str=="Create"){
+            new_id=document.getElementById("new_id").value;
+            new_title=document.getElementById("new_title").value;
+            new_desc=document.getElementById("new_desc").value;
+            new_more_desc=document.getElementById("new_more_desc").value;
+            new_date=document.getElementById("new_date").value;
+            window.location.href="/workshop/add_todo?new_id="+new_id+"&new_title="+new_title+"&new_desc="+new_desc+"&new_more_desc="+new_more_desc+"&new_date="+new_date
+        }
+    }
+    function fn_dismiss(){
+        document.getElementById("alert").style.display = "none";
+    }
+    setTimeout(function () {
+        document.getElementById("alert").style.display = "none";
+    },2500)
+</script>

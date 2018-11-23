@@ -18,6 +18,11 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new MyBundle\MyBundle(),
+            new FirstNameSpace\MyTodoBundle\MyTodoBundle(),
+            new WorkshopBundle\WorkshopBundle(),
+            new ResumeProfilerBundle\ResumeProfilerBundle(),
+            new ResumeYMLRoutedBundle\ResumeYMLRoutedBundle(),
+            new ContestBundle\ContestBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

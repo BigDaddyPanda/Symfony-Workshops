@@ -1,3 +1,27 @@
+contest:
+    resource: "@ContestBundle/Controller/"
+    type:     annotation
+    prefix:   /contest
+
+resume_yml_routed:
+    resource: "@ResumeYMLRoutedBundle/Resources/config/routing.yml"
+    prefix:   /resumeyml
+
+resume_profiler:
+    resource: "@ResumeProfilerBundle/Controller/"
+    type:     annotation
+    prefix:   /resumeprofiler
+
+workshop:
+    resource: "@WorkshopBundle/Controller/"
+    type:     annotation
+    prefix:   /workshop
+
+my_todo:
+    resource: "@MyTodoBundle/Controller/"
+    type:     annotation
+    prefix:   /mytodo
+
 my:
     resource: "@MyBundle/Controller/"
     type:     annotation

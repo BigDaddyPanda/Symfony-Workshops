@@ -1,0 +1,9 @@
+yml_homepage:
+    path:     /
+    defaults: { _controller: ResumeYMLRoutedBundle:Default:index }
+resume_list:
+    path:   /resume
+    defaults: { _controller: ResumeYMLRoutedBundle:Default:Resume }
+resume_detail:
+    path:   /resume_details/{resume_name}
+    defaults: { _controller: ResumeYMLRoutedBundle:Default:getDetailsOfResumes }
